@@ -42,6 +42,7 @@ jobs:
         run: ./gradlew detekt --continue
 
       - name: Collect Detekt Reports
+        if: always()
         run: |
           mkdir -p detekt-reports
 
@@ -64,6 +65,7 @@ jobs:
         run: ./gradlew test --continue
 
       - name: Collect Unit Test Reports
+        if: always()
         run: |
           mkdir -p unit-test-reports
 
