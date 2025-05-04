@@ -58,7 +58,7 @@ jobs:
         if: failure()
         uses: IliaSuponeff/detekt-pr-reporter-action@v1.0.4
         with:
-          report_path: "**/build/reports/detekt/detekt.md"
+          report_path: app/build/reports/detekt/detekt.md
           token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Collect Detekt Reports
