@@ -48,11 +48,18 @@ jobs:
 #          reports: |
 #            **/build/reports/detekt/detekt.xml
 
-      - name: Report CheckStyle Results
-        if: always()
-        uses: motlin/checkstyle-results@v1
+#      - name: Report CheckStyle Results
+#        if: always()
+#        uses: motlin/checkstyle-results@v1
+#        with:
+#          checkstyle_files: "**/build/reports/detekt/detekt.xml"
+
+      - name: Publish Detekt Report
+        if: failure()
+        uses: IliaSuponeff/detekt-pr-reporter-action@v1.0.4
         with:
-          checkstyle_files: "**/build/reports/detekt/detekt.xml"
+          report_path: "**/build/reports/detekt/detekt.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: Collect Detekt Reports
 #        if: always()
