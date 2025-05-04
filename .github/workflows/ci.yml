@@ -41,35 +41,40 @@ jobs:
       - name: Run Detekt
         run: ./gradlew detekt --continue
 
-      - name: Collect Detekt Reports
-        if: always()
-        run: |
-          mkdir -p detekt-reports
+#      - name: Publish Detekt reports
+#        uses: Juuxel/publish-checkstyle-report@v2
+#        if: ${{ failure() || success() }}
+#        with:
+#          reports: |
+#            **/build/reports/detekt/detekt.xml
 
-          find . -type f -path "*/build/reports/detekt/detekt.html" | while read file; do
-            module_path=$(dirname "$file" | sed -E 's|^\./(.*)/build/reports/detekt$|\1|')
-            module_name=$(echo "$module_path" | tr '/' '-')
-
-            cp "$file" "detekt-reports/${module_name}-detekt.html"
-          done
-
-      - name: Upload Detekt Reports
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Report CheckStyle Results
+        uses: motlin/checkstyle-results@v1
         with:
-          name: detekt-reports
-          path: detekt-reports
-          if-no-files-found: warn
+          checkstyle_files: "**/build/reports/detekt/detekt.xml"
+
+#      - name: Collect Detekt Reports
+#        if: always()
+#        run: |
+#          mkdir -p detekt-reports
+#
+#          find . -type f -path "*/build/reports/detekt/detekt.html" | while read file; do
+#            module_path=$(dirname "$file" | sed -E 's|^\./(.*)/build/reports/detekt$|\1|')
+#            module_name=$(echo "$module_path" | tr '/' '-')
+#
+#            cp "$file" "detekt-reports/${module_name}-detekt.html"
+#          done
+#
+#      - name: Upload Detekt Reports
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: detekt-reports
+#          path: detekt-reports
+#          if-no-files-found: warn
 
       - name: Run Unit Tests
         run: ./gradlew test --continue
-
-      - name: Publish Detekt reports
-        uses: Juuxel/publish-checkstyle-report@v2
-        if: ${{ failure() || success() }}
-        with:
-          reports: |
-            **/build/reports/detekt/detekt.xml
 
 #      - name: Report Detekt results with ReviewDog
 #        if: always()
