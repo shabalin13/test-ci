@@ -49,6 +49,7 @@ jobs:
 #            **/build/reports/detekt/detekt.xml
 
       - name: Report CheckStyle Results
+        if: always()
         uses: motlin/checkstyle-results@v1
         with:
           checkstyle_files: "**/build/reports/detekt/detekt.xml"
