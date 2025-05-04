@@ -61,6 +61,13 @@ jobs:
           report_path: app/build/reports/detekt/detekt.md
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: detekt
+        uses: alaegin/Detekt-Action@v1.19
+        with:
+          github_token: ${{ secrets.github_token }}
+          reviewdog_reporter: github-pr-review
+          detekt_config: config/detekt/detekt.yml
+
 #      - name: Collect Detekt Reports
 #        if: always()
 #        run: |
