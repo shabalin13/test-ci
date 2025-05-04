@@ -64,17 +64,24 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test --continue
 
-      - name: Report Detekt results with ReviewDog
-        if: always()
-        uses: reviewdog/action-checkstyle@v1
+      - name: Publish Detekt reports
+        uses: Juuxel/publish-checkstyle-report@v2
+        if: ${{ failure() || success() }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          level: warning
-          fail_on_error: false
-          filter_mode: diff_context
-          checkstyle_input: |
-            $(find . -type f -path "*/build/reports/detekt/detekt.xml" | paste -sd " ")
+          reports: |
+            **/build/reports/detekt/detekt.xml
+
+#      - name: Report Detekt results with ReviewDog
+#        if: always()
+#        uses: reviewdog/action-checkstyle@v1
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          reporter: github-pr-review
+#          level: warning
+#          fail_on_error: false
+#          filter_mode: diff_context
+#          checkstyle_input: |
+#            $(find . -type f -path "*/build/reports/detekt/detekt.xml" | paste -sd " ")
 
 #      - name: Collect Unit Test Reports
 #        if: always()
