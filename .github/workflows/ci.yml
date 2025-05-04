@@ -38,8 +38,8 @@ jobs:
       - name: Set Gradle permissions
         run: chmod +x ./gradlew
 
-      - name: Run Detekt
-        run: ./gradlew detekt --continue
+#      - name: Run Detekt
+#        run: ./gradlew detekt --continue
 
 #      - name: Publish Detekt reports
 #        uses: Juuxel/publish-checkstyle-report@v2
@@ -54,12 +54,12 @@ jobs:
 #        with:
 #          checkstyle_files: "**/build/reports/detekt/detekt.xml"
 
-      - name: Publish Detekt Report
-        if: failure()
-        uses: IliaSuponeff/detekt-pr-reporter-action@v1.0.4
-        with:
-          report_path: app/build/reports/detekt/detekt.md
-          token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Publish Detekt Report
+#        if: failure()
+#        uses: IliaSuponeff/detekt-pr-reporter-action@v1.0.4
+#        with:
+#          report_path: app/build/reports/detekt/detekt.md
+#          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: detekt
         uses: alaegin/Detekt-Action@v1.19
