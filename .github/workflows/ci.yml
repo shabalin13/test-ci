@@ -41,7 +41,7 @@ jobs:
       - name: Set Gradle permissions
         run: chmod +x ./gradlew
 
-      - name: "detekt"
+      - name: Detekt
         uses: natiginfo/action-detekt-all@1.23.8
 
 #      - name: Run Detekt
