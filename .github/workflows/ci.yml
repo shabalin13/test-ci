@@ -80,8 +80,9 @@ jobs:
           find . -type f -path "**/build/reports/detekt/detekt.xml" | while read file; do
             echo "Reviewdog for $file"
             reviewdog -f=checkstyle \
-              -name="detekt (${file})" \
+              -name="detekt report" \
               -reporter=github-pr-review \
+              -filter-mode=nofilter \
               -level=warning \
               < "$file"
           done
