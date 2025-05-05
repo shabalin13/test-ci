@@ -10,6 +10,9 @@ on:
       - develop
       - master
 
+permissions:
+  checks: write
+
 jobs:
   quality-check:
     name: Build, Lint and Test
