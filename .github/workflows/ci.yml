@@ -75,7 +75,7 @@ jobs:
 
       - name: Run reviewdog on all Detekt reports
         run: |
-          find . -type f -path "**/build/reports/detekt/detekt.xml" | while read file; do
+          find . -type f -path "*/build/reports/detekt/detekt.xml" | while read file; do
             echo "Reviewdog for $file"
             reviewdog -f=checkstyle \
               -name="detekt (${file})" \
