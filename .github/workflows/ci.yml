@@ -69,11 +69,13 @@ jobs:
 #          detekt_config: config/detekt/detekt.yml
 
       - name: Set up reviewdog
+        if: failure()
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
 
       - name: Run reviewdog on all Detekt reports
+        if: failure()
         run: |
           find . -type f -path "*/build/reports/detekt/detekt.xml" | while read file; do
             echo "Reviewdog for $file"
