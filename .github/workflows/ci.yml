@@ -91,6 +91,9 @@ jobs:
           token: ${{ secrets.KEYSTORE_ACCESS_TOKEN }}
           path: keystore
 
+      - name: Set Gradle permissions
+        run: chmod +x ./gradlew
+
       - name: Build release artifacts
         run: |
           ./gradlew assembleRelease --stacktrace
