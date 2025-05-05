@@ -81,8 +81,8 @@ jobs:
             echo "Reviewdog for $file"
             reviewdog -f=checkstyle \
               -name="detekt report" \
-              -reporter=github-pr-review \
-              -filter-mode=nofilter \
+              -reporter=github-pr-check \
+#              -filter-mode=nofilter \
               -level=warning \
               < "$file"
           done
