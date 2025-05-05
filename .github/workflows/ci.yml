@@ -70,5 +70,6 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: Unit Tests
-          path: '**/build/test-results/test/TEST-*.xml'
+          path: '**/build/test-results/test*/TEST-*.xml'
           reporter: java-junit
+          token: ${{ secrets.REVIEWDOG_TOKEN }}
