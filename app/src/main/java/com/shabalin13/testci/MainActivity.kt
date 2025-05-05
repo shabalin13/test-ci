@@ -11,12 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.shabalin13.testci.ui.theme.TestCITheme
 
-class MainActivity: ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TestCITheme{
+            TestCITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Text(
                         text = "Hello, Dmitrii!",
