@@ -29,6 +29,7 @@ jobs:
         run: ./gradlew detekt --continue
 
       - name: Report Detekt Results
+        if: failure()
         uses: motlin/checkstyle-results@v1
         with:
           checkstyle_files: "**/build/reports/detekt/detekt.xml"
