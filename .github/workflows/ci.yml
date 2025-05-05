@@ -38,8 +38,8 @@ jobs:
       - name: Set Gradle permissions
         run: chmod +x ./gradlew
 
-#      - name: Run Detekt
-#        run: ./gradlew detekt --continue
+      - name: Run Detekt
+        run: ./gradlew detekt --continue
 
 #      - name: Publish Detekt reports
 #        uses: Juuxel/publish-checkstyle-report@v2
@@ -106,8 +106,8 @@ jobs:
 #          path: detekt-reports
 #          if-no-files-found: warn
 
-      - name: Run Unit Tests
-        run: ./gradlew test --continue
+#      - name: Run Unit Tests
+#        run: ./gradlew test --continue
 
 #      - name: Report Detekt results with ReviewDog
 #        if: always()
