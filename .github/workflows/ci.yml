@@ -62,10 +62,11 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
 
       - name: Run Unit Tests
+        if: success() || failure()
         run: ./gradlew test --continue
 
       - name: Unit Test Report
-        if: always()
+        if: success() || failure()
         uses: dorny/test-reporter@v1
         with:
           name: Unit Tests
