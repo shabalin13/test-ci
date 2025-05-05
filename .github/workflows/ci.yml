@@ -76,9 +76,8 @@ jobs:
           find . -type f -path "**/build/reports/detekt/detekt.xml" | while read file; do
             echo "Reviewdog for $file"
             reviewdog -f=checkstyle \
-              -name="Detekt report" \
               -reporter=github-pr-check \
-              -level=warning \
+              -filter-mode=nofilter \
               < "$file"
           done
         env:
