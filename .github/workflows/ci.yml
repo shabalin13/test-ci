@@ -41,33 +41,6 @@ jobs:
       - name: Run Detekt
         run: ./gradlew detekt --continue
 
-#      - name: Publish Detekt reports
-#        uses: Juuxel/publish-checkstyle-report@v2
-#        if: ${{ failure() || success() }}
-#        with:
-#          reports: |
-#            **/build/reports/detekt/detekt.xml
-
-#      - name: Report CheckStyle Results
-#        if: always()
-#        uses: motlin/checkstyle-results@v1
-#        with:
-#          checkstyle_files: "**/build/reports/detekt/detekt.xml"
-
-#      - name: Publish Detekt Report
-#        if: failure()
-#        uses: IliaSuponeff/detekt-pr-reporter-action@v1.0.4
-#        with:
-#          report_path: app/build/reports/detekt/detekt.md
-#          token: ${{ secrets.GITHUB_TOKEN }}
-
-#      - name: detekt
-#        uses: alaegin/Detekt-Action@v1.19
-#        with:
-#          github_token: ${{ secrets.github_token }}
-#          reviewdog_reporter: github-pr-review
-#          detekt_config: config/detekt/detekt.yml
-
       - name: Set up reviewdog
         if: failure()
         uses: reviewdog/action-setup@v1
@@ -88,57 +61,13 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEWDOG_TOKEN }}
 
-          #      - name: Collect Detekt Reports
-#        if: always()
-#        run: |
-#          mkdir -p detekt-reports
-#
-#          find . -type f -path "*/build/reports/detekt/detekt.html" | while read file; do
-#            module_path=$(dirname "$file" | sed -E 's|^\./(.*)/build/reports/detekt$|\1|')
-#            module_name=$(echo "$module_path" | tr '/' '-')
-#
-#            cp "$file" "detekt-reports/${module_name}-detekt.html"
-#          done
-#
-#      - name: Upload Detekt Reports
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: detekt-reports
-#          path: detekt-reports
-#          if-no-files-found: warn
+      - name: Run Unit Tests
+        run: ./gradlew test --continue
 
-#      - name: Run Unit Tests
-#        run: ./gradlew test --continue
-
-#      - name: Report Detekt results with ReviewDog
-#        if: always()
-#        uses: reviewdog/action-checkstyle@v1
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          reporter: github-pr-review
-#          level: warning
-#          fail_on_error: false
-#          filter_mode: diff_context
-#          checkstyle_input: |
-#            $(find . -type f -path "*/build/reports/detekt/detekt.xml" | paste -sd " ")
-
-#      - name: Collect Unit Test Reports
-#        if: always()
-#        run: |
-#          mkdir -p unit-test-reports
-#
-#          find . -type d -path "*/build/test-results/test*/" | while read dir; do
-#            module_path=$(echo "$dir" | sed -E 's|^\./(.*)/build/test-results/test.*|\1|')
-#            module_name=$(echo "$module_path" | tr '/' '-')
-#
-#            cp -r "$dir" "unit-test-reports/${module_name}-test-results"
-#          done
-#
-#      - name: Upload Unit Test Reports
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: unit-test-reports
-#          path: unit-test-reports
-#          if-no-files-found: warn
+      - name: Unit Test Report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unit Tests
+          path: '**/build/test-results/test/TEST-*.xml'
+          reporter: java-junit
