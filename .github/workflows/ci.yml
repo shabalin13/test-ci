@@ -82,7 +82,6 @@ jobs:
             reviewdog -f=checkstyle \
               -name="detekt report" \
               -reporter=github-pr-check \
-#              -filter-mode=nofilter \
               -level=warning \
               < "$file"
           done
