@@ -13,8 +13,6 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    outputs:
-      gradle-cache-key: ${{ steps.cache-gradle.outputs.cache-primary-key }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
