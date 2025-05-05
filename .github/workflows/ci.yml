@@ -28,6 +28,11 @@ jobs:
       - name: Run Detekt
         run: ./gradlew detekt --continue
 
+      - name: Report Detekt Results
+        uses: motlin/checkstyle-results@v1
+        with:
+          checkstyle_files: "**/build/reports/detekt/detekt.xml"
+
 #      - name: Set up reviewdog
 #        if: failure()
 #        uses: reviewdog/action-setup@v1
