@@ -43,6 +43,8 @@ jobs:
 
       - name: Detekt
         uses: natiginfo/action-detekt-all@1.23.8
+        with:
+          args: --config config/detekt/detekt.yml
 
 #      - name: Run Detekt
 #        run: ./gradlew detekt --continue
