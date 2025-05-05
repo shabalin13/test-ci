@@ -22,7 +22,7 @@ android {
     signingConfigs {
         create("release") {
             val keystoreProperties = Properties()
-            val keystorePropsFile = rootProject.file("keystore")
+            val keystorePropsFile = rootProject.file("keystore.properties")
 
             if (keystorePropsFile.exists()) {
                 println("Используется keystore.properties")
