@@ -63,7 +63,7 @@ jobs:
           reporter: java-junit
 
   build_apk_aab:
-    name: Build Release APK and AAB
+    name: Release APK and AAB
     runs-on: ubuntu-latest
     needs: [lint, test]
 
