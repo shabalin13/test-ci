@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    name: Release APK
+    name: GitHub Release APK
     runs-on: ubuntu-latest
     if: github.event.base_ref == 'refs/head/master'
 
