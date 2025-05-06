@@ -12,7 +12,7 @@ jobs:
   release:
     name: GitHub Release APK
     runs-on: ubuntu-latest
-    if: github.event.base_ref == 'refs/head/master'
+    if: github.event.base_ref == 'refs/heads/master'
 
     env:
       KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
