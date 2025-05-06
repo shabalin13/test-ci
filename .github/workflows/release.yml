@@ -12,49 +12,39 @@ jobs:
   release:
     name: Release APK
     runs-on: ubuntu-latest
+    if: github.event.base_ref == 'refs/head/master'
 
-#    env:
-#      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-#      KEYSTORE_SIGN_KEY_ALIAS: ${{ secrets.KEYSTORE_SIGN_KEY_ALIAS }}
-#      KEYSTORE_SIGN_KEY_PASSWORD: ${{ secrets.KEYSTORE_SIGN_KEY_PASSWORD }}
-#      KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
+    env:
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEYSTORE_SIGN_KEY_ALIAS: ${{ secrets.KEYSTORE_SIGN_KEY_ALIAS }}
+      KEYSTORE_SIGN_KEY_PASSWORD: ${{ secrets.KEYSTORE_SIGN_KEY_PASSWORD }}
+      KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Output github ref
-        run: echo "The github.ref is ${{ github.ref }}"
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
 
-      - name: Output github workspace
-        run: echo "${{ github.workspace }}-CHANGELOG.txt"
+      - name: Checkout keystore repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.KEYSTORE_GIT_REPOSITORY }}
+          token: ${{ secrets.KEYSTORE_ACCESS_TOKEN }}
+          path: keystore
 
-      - name: Output github workspace
-        run: echo "${{ github.event.base_ref }}"
+      - name: Set Gradle permissions
+        run: chmod +x ./gradlew
 
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: 17
-#
-#      - name: Checkout keystore repo
-#        uses: actions/checkout@v4
-#        with:
-#          repository: ${{ secrets.KEYSTORE_GIT_REPOSITORY }}
-#          token: ${{ secrets.KEYSTORE_ACCESS_TOKEN }}
-#          path: keystore
-#
-#      - name: Set Gradle permissions
-#        run: chmod +x ./gradlew
-#
-#      - name: Build release APK
-#        run: |
-#          ./gradlew assembleRelease --stacktrace
-#
-#      - name: Create GitHub Release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          files: app/build/outputs/apk/release/app-release.apk
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build release APK
+        run: |
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/release/app-release.apk
