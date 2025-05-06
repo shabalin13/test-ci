@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TestCI"
 include(":app")
- 
+include(":utils")
