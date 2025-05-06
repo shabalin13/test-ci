@@ -25,7 +25,6 @@ android {
             val keystorePropsFile = rootProject.file("keystore.properties")
 
             if (keystorePropsFile.exists()) {
-                println("Используется keystore.properties")
                 keystorePropsFile.inputStream().use {
                     keystoreProperties.load(it)
                 }
@@ -34,7 +33,6 @@ android {
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
             } else {
-                println("Используются удаленный")
                 storeFile = rootProject.file("keystore/${System.getenv("KEYSTORE_FILE")}")
                 storePassword = System.getenv("KEYSTORE_PASSWORD")
                 keyAlias = System.getenv("KEYSTORE_SIGN_KEY_ALIAS")
