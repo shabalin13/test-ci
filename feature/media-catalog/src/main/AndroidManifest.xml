@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name="com.shabalin13.testci.mediaCatalog.temp.MediaCatalogActivity"
+            android:exported="false"
+            android:label="@string/title_activity_media_catalog"
+            android:theme="@style/Theme.TestCI" />
+    </application>
+
+</manifest>
