@@ -22,3 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "TestCI"
 include(":app")
 include(":utils")
+include(":data")
+include(":domain")
+include(":feature:media-catalog")
+include(":feature:media-details")
